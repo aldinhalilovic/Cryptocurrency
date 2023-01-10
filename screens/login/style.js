@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   reset: {
     fontWeight: "600",
-    fontSize: "15px",
+    fontSize: 15,
     marginTop: 10,
   },
 });

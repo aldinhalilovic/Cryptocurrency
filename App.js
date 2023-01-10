@@ -1,9 +1,9 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
+import SplashScreen from "./screens/splashscreen/SplashScreen";
 import Home from "./screens/homepage/Home";
 import Login from "./screens/login/Login";
-import SplashScreen from "./screens/splashscreen/SplashScreen";
 
 const Stack = createNativeStackNavigator();
 
