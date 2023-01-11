@@ -19,15 +19,16 @@ const Login = () => {
 
   const [mailInput, setMailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const mailValue = useDebounce(mailInput, 500);
-  const passwordValue = useDebounce(passwordInput, 500);
+  const mailValue = useDebounce(mailInput, 300);
+  const passwordValue = useDebounce(passwordInput, 300);
 
+  const navigation = useNavigation();
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
 
   function changeScreen() {
-    if (isValidEmail(mailValue) && passwordValue.length > 7) {
+    if (isValidEmail(mailValue) && passwordValue.length > 6) {
       navigation.navigate("home");
     } else {
       Alert.alert("Error", "Enter valid email or password...");
@@ -37,7 +38,6 @@ const Login = () => {
     }
   }
 
-  const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView behavior="padding">
