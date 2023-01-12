@@ -5,7 +5,8 @@ const CoinContext = createContext();
 
 const CoinContextProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
-  const [currentPlace, setCurrentPlace] = useState();
+  const [currentPlace, setCurrentPlace] = useState("All");
+  const [dataLimit, setDataLimit] = useState("10");
 
   function addToFavourites(element) {
     if (favourites.find((el) => el.uuid === element.uuid)) {
@@ -39,6 +40,8 @@ const CoinContextProvider = ({ children }) => {
     addToFavourites,
     setCurrentPlace,
     currentPlace,
+    dataLimit,
+    setDataLimit,
   };
 
   return <CoinContext.Provider value={values}>{children}</CoinContext.Provider>;

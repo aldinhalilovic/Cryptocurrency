@@ -5,9 +5,14 @@ class Api {
     this.api = instance;
   }
 
-  async getCoins() {
+  async getTopCoins() {
     const res = await this.api.get("/coins");
 
+    return res.data.data;
+  }
+
+  async getAllCoins() {
+    const res = await this.api.get();
     return res.data.data;
   }
 }

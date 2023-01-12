@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FilterLIst from "../../components/HomeFilterList";
 import api from "../../services/api";
 import { useQuery } from "react-query";
@@ -10,15 +10,23 @@ import { CoinContext } from "../../store/CoinContext";
 import CoinList from "../../components/CoinList";
 
 const Home = () => {
-  const { data } = useQuery("coins", async () => api.getCoins());
+  const { data } = useQuery("topcoins", async () => api.getTopCoins());
+  const [filteredData, setFilteredData] = useState([]);
   const { favourites, currentPlace } = useContext(CoinContext);
 
-  const inFavourites = (id) => {
-    return favourites.some((el) => el.uuid === id);
-  };
+  const inFavourites = (id) => favourites.some((el) => el.uuid === id);
 
-  console.log(favourites);
   console.log(currentPlace);
+
+  useEffect(() => {
+    if (currentPlace == "All") {
+      setFilteredData(data?.coins);
+    } else if (currentPlace == "Favourites") {
+      setFilteredData(favourites);
+    } else {
+      setFilteredData(data?.coins);
+    }
+  }, [currentPlace]);
 
   return (
     <View style={styles.container}>
@@ -30,7 +38,7 @@ const Home = () => {
         </View>
       </View>
       <FilterLIst />
-      <CoinList data={data} inFavourites={inFavourites} />
+      <CoinList data={filteredData} inFavourites={inFavourites} />
     </View>
   );
 };

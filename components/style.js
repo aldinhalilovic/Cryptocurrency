@@ -39,6 +39,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#B3C28A",
   },
   active: {
-    color: "#8CB78D",
+    backgroundColor: "#8CB78D",
   },
 });
