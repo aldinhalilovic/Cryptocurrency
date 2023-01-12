@@ -1,21 +1,34 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React, { useContext } from "react";
+import { CoinContext } from "../store/CoinContext";
 import Favourite from "../assets/icons/Vector.svg";
+import Empty from "../assets/icons/VectorE.svg";
 import { SvgUri } from "react-native-svg";
 
-const CoinCard = ({ element }) => {
+const CoinCard = ({ element, inFavourites }) => {
+  const { addToFavourites } = useContext(CoinContext);
+
   return (
     <View style={styles.container}>
-      <View style={styles.badge}>
-        <Favourite />
-      </View>
+      <TouchableOpacity
+        style={styles.badge}
+        onPress={() => addToFavourites(element)}
+      >
+        {!inFavourites ? <Empty /> : <Favourite />}
+      </TouchableOpacity>
       <View style={styles.content}>
         <SvgUri uri={element.iconUrl} height={80} width={80} />
         <View style={{ marginLeft: 20 }}>
           <View style={styles.contentTitle}>
             <Text style={styles.contentText}>{element.name}</Text>
-            <Text style={styles.contentText}>
-              {Number(element.price).toLocaleString()}$
+            <Text style={[styles.contentText, styles.currency]}>
+              ${Number(element.price).toFixed(2).toLocaleString()}
             </Text>
           </View>
           <Text style={{ justifyContent: "flex-end" }}>{element.name}</Text>
@@ -26,6 +39,8 @@ const CoinCard = ({ element }) => {
 };
 
 export default CoinCard;
+
+const windowDimensions = Dimensions.get("screen").width;
 
 const styles = StyleSheet.compose({
   container: {
@@ -53,7 +68,7 @@ const styles = StyleSheet.compose({
   },
   contentTitle: {
     marginTop: 10,
-    width: "75%",
+    width: windowDimensions - 190,
     height: "50%",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -62,5 +77,8 @@ const styles = StyleSheet.compose({
     fontWeight: "600",
     lineHeight: 22,
     fontSize: 15,
+  },
+  currency: {
+    marginLeft: 50,
   },
 });

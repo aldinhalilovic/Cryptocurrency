@@ -1,17 +1,24 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import FilterLIst from "../../components/HomeFilterList";
-import CoinCard from "../../components/CoinCard";
 import api from "../../services/api";
 import { useQuery } from "react-query";
 import Bell from "../../assets/icons/Union.svg";
 import Search from "../../assets/icons/search.svg";
 import { styles } from "./style";
+import { CoinContext } from "../../store/CoinContext";
+import CoinList from "../../components/CoinList";
 
 const Home = () => {
-  const { data, isLoading } = useQuery("coins", async () => api.getCoins());
+  const { data } = useQuery("coins", async () => api.getCoins());
+  const { favourites, currentPlace } = useContext(CoinContext);
 
-  // console.log(data?.coins);
+  const inFavourites = (id) => {
+    return favourites.some((el) => el.uuid === id);
+  };
+
+  console.log(favourites);
+  console.log(currentPlace);
 
   return (
     <View style={styles.container}>
@@ -23,10 +30,7 @@ const Home = () => {
         </View>
       </View>
       <FilterLIst />
-      {isLoading ? <Text>nema</Text> : <Text>ima</Text>}
-      {data?.coins.map((el, index) => (
-        <CoinCard element={el} key={index} />
-      ))}
+      <CoinList data={data} inFavourites={inFavourites} />
     </View>
   );
 };

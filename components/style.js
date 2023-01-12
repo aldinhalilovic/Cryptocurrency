@@ -36,6 +36,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 56,
-    backgroundColor: "#8CB78D",
+    backgroundColor: "#B3C28A",
+  },
+  active: {
+    color: "#8CB78D",
   },
 });
