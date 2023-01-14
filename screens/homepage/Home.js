@@ -16,8 +16,6 @@ const Home = () => {
 
   const inFavourites = (id) => favourites.some((el) => el.uuid === id);
 
-  console.log(currentPlace);
-
   useEffect(() => {
     if (currentPlace == "All") {
       setFilteredData(data?.coins);
