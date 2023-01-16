@@ -24,7 +24,7 @@ export default function App() {
             screenOptions={{
               headerShown: false,
             }}
-            // initialRouteName="home"
+            initialRouteName="home"
           >
             <Stack.Screen name="splash" component={SplashScreen} />
             <Stack.Screen name="login" component={Login} />

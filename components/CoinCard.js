@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React, { useContext } from "react";
 import { CoinContext } from "../store/CoinContext";
@@ -23,7 +24,13 @@ const CoinCard = ({ element, inFavourites }) => {
         {!inFavourites ? <Empty /> : <Favourite />}
       </TouchableOpacity>
       <View style={styles.content}>
-        <SvgUri uri={element.iconUrl} height={80} width={80} />
+        {/* {
+          <SvgUri
+            uri={element?.iconUrl.includes("png") ? "" : element?.iconUrl}
+            height={50}
+            width={50}
+          />
+        } */}
         <View style={{ marginLeft: 20 }}>
           <View style={styles.contentTitle}>
             <Text style={styles.contentText}>{element.name}</Text>

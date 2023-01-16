@@ -2,7 +2,8 @@ import { instance } from "./instance";
 
 class Api {
   constructor() {
-    this.api = instance;
+    this.api = instance(10);
+    this.bilosta = instance(30);
   }
 
   async getTopCoins() {
@@ -12,7 +13,7 @@ class Api {
   }
 
   async getAllCoins() {
-    const res = await this.api.get();
+    const res = await this.bilosta.get("/coins");
     return res.data.data;
   }
 }

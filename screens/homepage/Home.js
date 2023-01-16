@@ -8,9 +8,17 @@ import Search from "../../assets/icons/search.svg";
 import { styles } from "./style";
 import { CoinContext } from "../../store/CoinContext";
 import CoinList from "../../components/CoinList";
+import Loading from "../../components/Loading";
 
 const Home = () => {
-  const { data } = useQuery("topcoins", async () => api.getTopCoins());
+  const { data: dataAlias, isLoading: loadingAlias } = useQuery(
+    "topcoins",
+    async () => api.getTopCoins()
+  );
+  const { data, isLoading } = useQuery("allcoins", async () =>
+    api.getAllCoins()
+  );
+
   const [filteredData, setFilteredData] = useState([]);
   const { favourites, currentPlace } = useContext(CoinContext);
 
@@ -22,9 +30,9 @@ const Home = () => {
     } else if (currentPlace == "Favourites") {
       setFilteredData(favourites);
     } else {
-      setFilteredData(data?.coins);
+      setFilteredData(dataAlias?.coins);
     }
-  }, [currentPlace]);
+  }, [currentPlace, favourites, isLoading]);
 
   return (
     <View style={styles.container}>
@@ -36,7 +44,11 @@ const Home = () => {
         </View>
       </View>
       <FilterLIst />
-      <CoinList data={filteredData} inFavourites={inFavourites} />
+      {isLoading || loadingAlias ? (
+        <Loading />
+      ) : (
+        <CoinList data={filteredData} inFavourites={inFavourites} />
+      )}
     </View>
   );
 };
