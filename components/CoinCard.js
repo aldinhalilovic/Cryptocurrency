@@ -15,6 +15,10 @@ import { SvgUri } from "react-native-svg";
 const CoinCard = ({ element, inFavourites }) => {
   const { addToFavourites } = useContext(CoinContext);
 
+  if (!element?.iconUrl?.endsWith("svg")) {
+    return <></>;
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -24,13 +28,8 @@ const CoinCard = ({ element, inFavourites }) => {
         {!inFavourites ? <Empty /> : <Favourite />}
       </TouchableOpacity>
       <View style={styles.content}>
-        {/* {
-          <SvgUri
-            uri={element?.iconUrl.includes("png") ? "" : element?.iconUrl}
-            height={50}
-            width={50}
-          />
-        } */}
+        <SvgUri uri={element?.iconUrl} height={50} width={50} />
+
         <View style={{ marginLeft: 20 }}>
           <View style={styles.contentTitle}>
             <Text style={styles.contentText}>{element.name}</Text>

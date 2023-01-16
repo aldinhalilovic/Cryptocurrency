@@ -18,6 +18,7 @@ const Home = () => {
   const { data, isLoading } = useQuery("allcoins", async () =>
     api.getAllCoins()
   );
+  console.log("data", data);
 
   const [filteredData, setFilteredData] = useState([]);
   const { favourites, currentPlace } = useContext(CoinContext);
@@ -26,7 +27,11 @@ const Home = () => {
 
   useEffect(() => {
     if (currentPlace == "All") {
-      setFilteredData(data?.coins);
+      setFilteredData([
+        ...data?.coins?.slice(0, 10),
+        ...data?.coins?.slice(12, 21),
+        ...data?.coins?.slice(22),
+      ]);
     } else if (currentPlace == "Favourites") {
       setFilteredData(favourites);
     } else {

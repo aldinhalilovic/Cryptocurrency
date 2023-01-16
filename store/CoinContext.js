@@ -5,7 +5,7 @@ const CoinContext = createContext();
 
 const CoinContextProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
-  const [currentPlace, setCurrentPlace] = useState("All");
+  const [currentPlace, setCurrentPlace] = useState("Top");
   const [dataLimit, setDataLimit] = useState("10");
 
   function addToFavourites(element) {

@@ -3,7 +3,7 @@ import { instance } from "./instance";
 class Api {
   constructor() {
     this.api = instance(10);
-    this.bilosta = instance(30);
+    this.bilosta = instance(40);
   }
 
   async getTopCoins() {

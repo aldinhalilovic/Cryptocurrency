@@ -13,11 +13,11 @@ const FilterLIst = () => {
           <TouchableOpacity
             style={[
               styles.filterListAll,
-              currentPlace === "All" && styles.active,
+              currentPlace === "Top" && styles.active,
             ]}
-            onPress={() => setCurrentPlace("All")}
+            onPress={() => setCurrentPlace("Top")}
           >
-            <Text>All</Text>
+            <Text>Top</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
@@ -31,11 +31,11 @@ const FilterLIst = () => {
           <TouchableOpacity
             style={[
               styles.filterListTop,
-              currentPlace === "Top" && styles.active,
+              currentPlace === "All" && styles.active,
             ]}
-            onPress={() => setCurrentPlace("Top")}
+            onPress={() => setCurrentPlace("All")}
           >
-            <Text>Top</Text>
+            <Text>All</Text>
           </TouchableOpacity>
         </View>
       </View>

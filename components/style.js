@@ -41,4 +41,15 @@ export const styles = StyleSheet.create({
   active: {
     backgroundColor: "#8CB78D",
   },
+  loadingContainer: {
+    height: "70%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    fontSize: 30,
+    fontWeight: "600",
+    letterSpacing: 0.5,
+    textAlign: "center",
+  },
 });
