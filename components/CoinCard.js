@@ -34,7 +34,10 @@ const CoinCard = ({ element, inFavourites }) => {
           <View style={styles.contentTitle}>
             <Text style={styles.contentText}>{element.name}</Text>
             <Text style={[styles.contentText, styles.currency]}>
-              ${Number(element.price).toFixed(2).toLocaleString()}
+              $
+              {Number(element.price).toLocaleString(undefined, {
+                maximumFractionDigits: 2,
+              })}
             </Text>
           </View>
           <Text style={{ justifyContent: "flex-end" }}>{element.name}</Text>
@@ -71,6 +74,8 @@ const styles = StyleSheet.compose({
     marginVertical: 20,
     marginLeft: 10,
     flexDirection: "row",
+    // justifyContent: "center",
+    alignItems: "center",
   },
   contentTitle: {
     marginTop: 10,

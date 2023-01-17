@@ -51,5 +51,7 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     letterSpacing: 0.5,
     textAlign: "center",
+    color: "white",
+    opacity: 0.78,
   },
 });

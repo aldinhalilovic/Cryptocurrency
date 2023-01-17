@@ -11,10 +11,16 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   headerIcons: {
-    width: "18%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignSelf: "flex-end",
+  },
+  headerSearchInput: {
+    width: 190,
+    backgroundColor: "white",
+    opacity: 0.8,
+    textAlign: "right",
+    paddingHorizontal: 10,
   },
   marketText: {
     fontSize: 32,
