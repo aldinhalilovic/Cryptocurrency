@@ -1,9 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
 
-// const [limitData, setLimitData] = useState();
-
-export const instance = (limit) =>
+export const instance = () =>
   axios.create({
     baseURL: "https://coinranking1.p.rapidapi.com",
     timeout: 1000,
@@ -17,8 +14,6 @@ export const instance = (limit) =>
       "tiers[0]": "1",
       orderBy: "marketCap",
       orderDirection: "desc",
-      limit,
       offset: "0",
-      // search: searchItem,
     },
   });

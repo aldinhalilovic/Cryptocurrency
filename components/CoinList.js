@@ -1,9 +1,15 @@
 import { Button, FlatList, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import CoinCard from "./CoinCard";
 import { styles } from "./style";
+import { CoinContext } from "../store/CoinContext";
 
 const CoinList = (props) => {
+  const { favourites } = useContext(CoinContext);
+
+  const inFavourites = (id) => {
+    return favourites.some((el) => el.uuid === id);
+  };
   return (
     <>
       {props?.data?.length === 0 ? (
@@ -21,9 +27,9 @@ const CoinList = (props) => {
           data={props.data}
           renderItem={(itemData) => (
             <CoinCard
-              element={itemData.item}
               key={itemData.item.id}
-              inFavourites={props.inFavourites(itemData.item.uuid)}
+              element={itemData.item}
+              inFavourites={inFavourites(itemData.item.uuid)}
             />
           )}
         />

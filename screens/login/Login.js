@@ -11,16 +11,13 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "../login/style";
-import { useDebounce } from "../../hooks/useDebounce";
 import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
-  const [borderRed, setBorderRed] = useState(true);
+  const [borderRed, setBorderRed] = useState(false);
 
   const [mailInput, setMailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
-  const mailValue = useDebounce(mailInput, 300);
-  const passwordValue = useDebounce(passwordInput, 300);
 
   const navigation = useNavigation();
   function isValidEmail(email) {
@@ -28,11 +25,11 @@ const Login = () => {
   }
 
   function changeScreen() {
-    if (isValidEmail(mailValue) && passwordValue.length > 6) {
+    if (isValidEmail(mailInput) && passwordInput.length > 6) {
       navigation.navigate("home");
     } else {
       Alert.alert("Error", "Enter valid email or password...");
-      setBorderRed(false);
+      setBorderRed(true);
       setMailInput("");
       setPasswordInput("");
     }
@@ -52,9 +49,9 @@ const Login = () => {
             </View>
             <TextInput
               placeholder="Enter your email"
-              style={[styles.input, !borderRed && { borderColor: "red" }]}
+              style={[styles.input, borderRed && { borderColor: "red" }]}
               value={mailInput}
-              onFocus={() => setBorderRed(true)}
+              onFocus={() => setBorderRed(false)}
               onChangeText={setMailInput}
             />
           </View>
@@ -62,9 +59,9 @@ const Login = () => {
             <Text style={styles.label}>Password</Text>
             <TextInput
               placeholder="Password"
-              style={[styles.input, !borderRed && { borderColor: "red" }]}
+              style={[styles.input, borderRed && { borderColor: "red" }]}
               value={passwordInput}
-              onFocus={() => setBorderRed(true)}
+              onFocus={() => setBorderRed(false)}
               onChangeText={setPasswordInput}
               secureTextEntry
             />

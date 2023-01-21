@@ -1,28 +1,33 @@
-import { useContext } from "react";
-import { CoinContext } from "../store/CoinContext";
 import { instance } from "./instance";
 
 class Api {
   constructor() {
-    this.api = instance(10);
-    this.bilosta = instance(40);
-    this.searchItems = instance(10);
+    this.coins = instance();
   }
 
   async getTopCoins() {
-    const res = await this.api.get("/coins");
+    const res = await this.coins.get("/coins", {
+      params: {
+        limit: 10,
+      },
+    });
 
     return res.data.data;
   }
 
   async getAllCoins() {
-    const res = await this.bilosta.get("/coins");
+    const res = await this.coins.get("/coins", {
+      params: {
+        limit: 40,
+      },
+    });
     return res.data.data;
   }
 
   async getSearchCoins(searchText) {
-    const res = await this.searchItems.get("/coins", {
+    const res = await this.coins.get("/coins", {
       params: {
+        limit: 10,
         search: searchText,
       },
     });
@@ -30,6 +35,6 @@ class Api {
   }
 }
 
-const api = new Api("bit");
+const api = new Api();
 
 export default Object.freeze(api);

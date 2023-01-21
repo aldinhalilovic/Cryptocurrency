@@ -10,7 +10,6 @@ import React, { useContext } from "react";
 import { CoinContext } from "../store/CoinContext";
 import Favourite from "../assets/icons/Vector.svg";
 import Empty from "../assets/icons/VectorE.svg";
-import { SvgUri } from "react-native-svg";
 
 const CoinCard = ({ element, inFavourites }) => {
   const { addToFavourites } = useContext(CoinContext);
@@ -28,7 +27,10 @@ const CoinCard = ({ element, inFavourites }) => {
         {!inFavourites ? <Empty /> : <Favourite />}
       </TouchableOpacity>
       <View style={styles.content}>
-        <SvgUri uri={element?.iconUrl} height={50} width={50} />
+        <Image
+          source={require("../assets/images/Logo.png")}
+          style={{ height: 50, width: 50 }}
+        />
 
         <View style={{ marginLeft: 20 }}>
           <View style={styles.contentTitle}>
@@ -37,6 +39,7 @@ const CoinCard = ({ element, inFavourites }) => {
               $
               {Number(element.price).toLocaleString(undefined, {
                 maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
               })}
             </Text>
           </View>
@@ -74,7 +77,6 @@ const styles = StyleSheet.compose({
     marginVertical: 20,
     marginLeft: 10,
     flexDirection: "row",
-    // justifyContent: "center",
     alignItems: "center",
   },
   contentTitle: {

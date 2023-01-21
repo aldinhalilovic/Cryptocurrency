@@ -1,20 +1,20 @@
 import { View, Text, TextInput, Pressable, Animated } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import FilterLIst from "../../components/HomeFilterList";
 import api from "../../services/api";
 import { useQuery } from "react-query";
-import Bell from "../../assets/icons/Union.svg";
-import Search from "../../assets/icons/search.svg";
-import { styles } from "./style";
-import { CoinContext } from "../../store/CoinContext";
+import ModalSearch from "../modalSearch/ModalSearch";
+import FilterLIst from "../../components/HomeFilterList";
 import CoinList from "../../components/CoinList";
 import Loading from "../../components/Loading";
+import Bell from "../../assets/icons/Union.svg";
+import Search from "../../assets/icons/search.svg";
+import { CoinContext } from "../../store/CoinContext";
+import { styles } from "./style";
 
 const Home = () => {
   const [filteredData, setFilteredData] = useState([]);
-  const [showSearchBar, setShowSearchBar] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const { favourites, currentPlace } = useContext(CoinContext);
+  const { favourites, currentPlace, setShowSearchBar, showSearchBar } =
+    useContext(CoinContext);
 
   const { data: topData, isLoading: loadingAlias } = useQuery(
     "topcoins",
@@ -24,18 +24,8 @@ const Home = () => {
     api.getAllCoins()
   );
 
-  const { data: searchData } = useQuery("searchCoins", async () =>
-    api.getSearchCoins(searchText)
-  );
-
-  const inFavourites = (id) => {
-    favourites.some((el) => el.uuid === id);
-  };
-
   useEffect(() => {
-    if (searchText !== "") {
-      setFilteredData(searchData?.coins);
-    } else if (currentPlace == "Favourites") {
+    if (currentPlace == "Favourites") {
       setFilteredData(favourites);
     } else if (currentPlace == "All") {
       setFilteredData([
@@ -44,30 +34,17 @@ const Home = () => {
         ...allData?.coins?.slice(23, 40),
       ]);
     } else setFilteredData(topData?.coins);
-  }, [currentPlace, favourites, isLoading, searchText]);
-
-  console.log(searchData);
-  console.log(searchText);
+  }, [currentPlace, favourites, isLoading, loadingAlias]);
 
   return (
     <View style={styles.container}>
+      <ModalSearch />
       <View style={styles.header}>
         <Text style={styles.marketText}>Market</Text>
         <View style={styles.headerIcons}>
-          <View style={{ flexDirection: "row" }}>
-            {showSearchBar && (
-              <TextInput
-                selectionColor={"black"}
-                style={styles.headerSearchInput}
-                onChangeText={setSearchText}
-                value={searchText}
-              />
-            )}
-
-            <Pressable onPress={() => setShowSearchBar(true)}>
-              <Search />
-            </Pressable>
-          </View>
+          <Pressable onPress={() => setShowSearchBar(true)}>
+            <Search />
+          </Pressable>
           <Bell />
         </View>
       </View>
@@ -75,7 +52,7 @@ const Home = () => {
       {isLoading || loadingAlias ? (
         <Loading />
       ) : (
-        <CoinList data={filteredData} inFavourites={inFavourites} />
+        <CoinList data={filteredData} />
       )}
     </View>
   );
